@@ -1,0 +1,29 @@
+//get recipes
+query getRecipes($author: String!) {
+    recipes(author: $author){
+        name
+        author
+        description
+        method
+        url
+    }
+}
+
+{
+  "author": "Good Food"
+}
+
+//getrecipe
+query getSingleRecipe($recipeName: String!) {
+    recipe(name: $recipeName) {
+        name
+        author
+        description
+        method
+        url
+    }
+}
+
+{ 
+    "recipeName": "Simmer-&-stir Christmas cake"
+}

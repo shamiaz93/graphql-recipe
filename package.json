@@ -1,0 +1,16 @@
+{
+  "name": "graphql-api-assignment2",
+  "version": "1.0.0",
+  "description": "this is a graphql api for recipe sharing platform",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "group5",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.6.0"
+  }
+}
