@@ -10,6 +10,10 @@ var schema = buildSchema(`
         recipe(name: String!): Recipe
         recipes(author: String): [Recipe]
     },
+    type Mutation {
+        updateRecipeName(id: Int!, name: String!): Recipe
+        createRecipe(name: String!, author: String!, description: String): Recipe
+    },
     type Recipe {
         id: Int
         name: String
@@ -20,16 +24,14 @@ var schema = buildSchema(`
         method: [String]
     }
 `);
-console.log(recipeData[0]);
+
 var getRecipe = function (args) {
-    console.log("getRecipe");
     var name = args.name;
     return recipeData.filter(recipe => {
         return recipe.name == name;
     })[0];
 }
 var getRecipes = function (args) {
-    console.log("getRecipes")
     if (args.author) {
         var author = args.author;
         return recipeData.filter(recipe => recipe.author === author);
@@ -37,10 +39,33 @@ var getRecipes = function (args) {
         return recipeData;
     }
 }
+var updateRecipeName = function ({ id, name }) {
+    recipeData.map(recipe => {
+        if (recipe.id === id) {
+            recipe.name = name;
+            return recipe;
+        }
+    });
+    return recipeData.filter(recipe => recipe.id === id)[0];
+}
+var createRecipe = function ({ name, author, description }) {
+    const getLastRecipeId = recipeData[recipeData.length - 1].id;
+    if (name && author) {
+        const recipe = {
+            name, description, author,
+            id: getLastRecipeId + 1
+        }
+        recipeData.push(recipe);
+    }
+    return recipeData.filter(recipe => recipe.id === (getLastRecipeId + 1))[0];
+}
+
 
 var root = {
     recipe: getRecipe,
-    recipes: getRecipes
+    recipes: getRecipes,
+    updateRecipeName: updateRecipeName,
+    createRecipe: createRecipe
 };
 
 // Create an express server and a GraphQL endpoint

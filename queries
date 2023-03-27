@@ -27,3 +27,36 @@ query getSingleRecipe($recipeName: String!) {
 { 
     "recipeName": "Simmer-&-stir Christmas cake"
 }
+
+//update recipe name
+mutation updateRecipeName($id: Int!, $name: String!) {
+  updateRecipeName(id: $id, name: $name) {
+        name
+        author
+        description
+        method
+        url
+  }
+}
+
+{
+  "id": 1,
+  "name": "JavaScript"
+}
+
+//create recipe
+mutation createRecipe($name: String!, $author: String!, $description: String) {
+  createRecipe(name: $name, author: $author, description: $description) {
+        name
+        author
+        description
+        method
+        url
+  }
+}
+
+{
+  "name": "Christmas Pie cake",
+  "author": "John Doe",
+  "description": "My Description"
+}
