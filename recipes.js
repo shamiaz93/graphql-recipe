@@ -26,7 +26,8 @@ const recipeData = [
             "Roll out the remaining pastry. Brush the edges of the pastry with beaten egg and cover with the pastry lid. Pinch the edges to seal, then trim. Brush the top of the pie with egg, then roll out the trimmings to make holly leaf shapes and berries. Decorate the pie and brush again with egg.",
             "Set the tin on a baking sheet and bake for 50-60 mins, then cool in the tin for 15 mins. Remove and leave to cool completely. Serve with a winter salad and pickles."
         ],
-        "id": 1
+        "id": 1,
+        "userId": [1]
     },
     {
         "name": "Simmer-&-stir Christmas cake",
@@ -57,7 +58,8 @@ const recipeData = [
             "Bake for 45 minutes, then turn down the heat to 140C/gas 1/ fan120C and cook for a further 1-1¼ hours (about a further 1¾ hours if you have a gas oven) until the cake is dark golden in appearance and firm to the touch. Cover the top of the cake with foil if it starts to darken too much. To check the cake is done, insert a fine skewer into the centre - if it comes out clean, the cake is cooked.",
             "Make holes all over the warm cake with a fine skewer and spoon the extra 4tbsp brandy over the holes until it has all soaked in. Leave the cake to cool in the tin. When it's cold, remove it from the tin, peel off the lining paper, then wrap first in baking parchment and then in foil. The cake will keep in a cupboard for up to three months or you can freeze it for six months."
         ],
-        "id": 2
+        "id": 2,
+        "userId": [1]
     },
     {
         "name": "Christmas cupcakes",
@@ -94,7 +96,8 @@ const recipeData = [
             "Unravel the marzipan onto a work surface lightly dusted with icing sugar. Stamp out 12 rounds, 6cm across. Brush the cake tops with apricot jam, top with a marzipan round and press down lightly.",
             "Make up the fondant icing to a spreading consistency, then swirl on top of each cupcake. Decorate with sugared almonds and snowflakes, then leave to set. Will keep in a tin for 3 weeks."
         ],
-        "id": 3
+        "id": 3,
+        "userId": [2, 3]
     },
     {
         "name": "Christmas buns",
@@ -126,7 +129,8 @@ const recipeData = [
             "Heat oven to 190C/170C fan/gas 5. Bake the buns for 20-25 mins or until risen and golden brown. Meanwhile, melt the glaze sugar with 4 tbsp water until syrupy.",
             "Remove from oven and glaze. Set aside to cool on a wire rack. Once cool, mix the zest and icing sugar with about 2 tbsp water to drizzle over the buns. Serve."
         ],
-        "id": 4
+        "id": 4,
+        "userId": [3]
     },
     {
         "name": "Christmas cupcakes",

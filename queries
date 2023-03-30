@@ -1,39 +1,46 @@
 //get recipes
-query getRecipes($author: String!) {
-    recipes(author: $author){
+query getRecipes($userId: Int) {
+    recipes(userId: $userId){
+        id
         name
         author
         description
+        ingredients
         method
         url
+        userId
     }
 }
 
 {
-  "author": "Good Food"
+  "userId": 1
 }
 
 //getrecipe
-query getSingleRecipe($recipeName: String!) {
-    recipe(name: $recipeName) {
+query getRecipeById($recipeId: Int!) {
+    recipe(id: $recipeId) {
+        id
         name
         author
         description
+        ingredients
         method
         url
+        userId
     }
 }
 
 { 
-    "recipeName": "Simmer-&-stir Christmas cake"
+    "recipeId": 1
 }
 
 //update recipe name
-mutation updateRecipeName($id: Int!, $name: String!) {
-  updateRecipeName(id: $id, name: $name) {
+mutation updateRecipe($id: Int!, $name: String!, $description: String, $ingredients: [String], $method: [String], $url: String) {
+  updateRecipe(id: $id, name: $name, description: $description, ingredients: $ingredients, method: $method, url: $url) {
         name
         author
         description
+        ingredients
         method
         url
   }
@@ -41,22 +48,47 @@ mutation updateRecipeName($id: Int!, $name: String!) {
 
 {
   "id": 1,
-  "name": "JavaScript"
+  "name": "Christmas fruit cake"
 }
 
 //create recipe
-mutation createRecipe($name: String!, $author: String!, $description: String) {
-  createRecipe(name: $name, author: $author, description: $description) {
+mutation createRecipe($name: String!, $author: String, $description: String, $ingredients: [String], $method: [String], $url: String, $userId: Int!) {
+  createRecipe(name: $name, author: $author, description: $description, ingredients: $ingredients, method: $method, url: $url, userId: $userId) {
+        id
         name
         author
         description
+        ingredients
         method
         url
+        userId
   }
 }
 
 {
   "name": "Christmas Pie cake",
   "author": "John Doe",
-  "description": "My Description"
+  "description": "My Description",
+  "ingredients": ["a","b"],
+  "method": ["c", "d"],
+  "url": "aaaa.com",
+  "userId": 5
+}
+
+//share or share recipe name
+mutation saveOrShareRecipe($recipeId: Int!, $userId: Int!) {
+  saveOrShareRecipe(recipeId: $recipeId, userId: $userId) {
+        id
+        name
+        author
+        description
+        ingredients
+        method
+        url
+  }
+}
+
+{
+  "recipeId": 1,
+  "userId": 5
 }
