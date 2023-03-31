@@ -92,3 +92,47 @@ mutation saveOrShareRecipe($recipeId: Int!, $userId: Int!) {
   "recipeId": 1,
   "userId": 5
 }
+
+//get user by id
+query getUserById($userId: Int!) {
+    user(userId: $userId) {
+        userId
+        name
+        email
+        password
+    }
+}
+
+{
+    "userId": 1
+}
+
+//create user
+mutation registerUser($name: String!, $email: String!, $password: String!) {
+  registerUser(name: $name, email: $email, password: $password) {
+        userId
+        name
+        email
+        password
+  }
+}
+
+{
+    "name": "Katie Prom",
+    "email": "katie@gmail.com",
+    "password": "katie123"
+}
+
+//updateUser
+mutation updateUser($userId: Int!, $name: String, $password: String) {
+  updateUser(userId: $userId, name: $name, password: $password) {
+        userId
+        name
+        email
+        password
+  }
+}
+
+{
+    "userId": 1
+}

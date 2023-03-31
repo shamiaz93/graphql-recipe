@@ -1,6 +1,7 @@
 var express = require('express');
 var { graphqlHTTP } = require('express-graphql');
 const { recipeData } = require('./recipes');
+const { userData } = require('./users');
 var { buildSchema } = require('graphql');
 //const schema = require('./schema');
 
@@ -10,6 +11,10 @@ var schema = buildSchema(`
     Queries to return object or array of object of recipe details by recipe id or user id
     """
     type Query {
+        """
+        Returns the details of User by userId
+        """
+        user(userId: Int!): User
         """
         Returns an object of recipe details by recipe id
         """
@@ -23,6 +28,14 @@ var schema = buildSchema(`
     Mutations to create recipe, update recipe and save or share recipe
     """
     type Mutation {
+        """
+        Creates a new User
+        """
+        registerUser(name: String!, email: String!, password: String!): User
+        """
+        Update an already registered User
+        """
+        updateUser(userId: Int!, name: String, password: String): User
         """
         Mutation to update recipe object using recipe id , name ,description , ingredients and method as input
         """
@@ -73,11 +86,55 @@ var schema = buildSchema(`
         Int value to hold user id 
         """
         userId: [Int]
+    },
+    type User {
+        """
+        UserId holds unique id for users
+        """
+        userId: Int,
+        """
+        Name of the user
+        """
+        name: String,
+        """
+        Email id of User
+        """
+        email: String,
+        """
+        Password of User
+        """
+        password: String
     }
 `);
-
+var getUser = function (args) {
+    const userId = args.userId;
+    return userData.filter(user => {
+        return user.userId === userId;
+    })[0];
+}
+var registerUser = function ({ name, email, password }) {
+    const getLastUserId = userData[userData.length - 1].userId;
+    if (name && email && password) {
+        const user = {
+            name, email, password,
+            userId: getLastUserId + 1
+        }
+        userData.push(user);
+    }
+    return userData.filter(user => user.userId === (getLastUserId + 1))[0];
+}
+var updateUser = function ({ userId, name, password }) {
+    userData.map(user => {
+        if (user.userId === userId) {
+            if (name && name != "") user.name = name;
+            if (password && password != "") user.password = password;
+            return user;
+        }
+    });
+    return userData.filter(user => user.userId === userId)[0];
+}
 var getRecipe = function (args) {
-    var id = args.id;
+    const id = args.id;
     return recipeData.filter(recipe => {
         return recipe.id == id;
     })[0];
@@ -85,7 +142,7 @@ var getRecipe = function (args) {
 var getRecipes = function (args) {
     if (args.userId) {
         var userId = args.userId;
-        return recipeData.filter(recipe => recipe.userId && recipe.userId.includes(userId));//recipe.userId === userId);
+        return recipeData.filter(recipe => recipe.userId && recipe.userId.includes(userId));
     } else {
         return recipeData;
     }
@@ -133,6 +190,9 @@ var saveOrShareRecipe = function ({ recipeId, userId }) {
 }
 
 var root = {
+    user: getUser,
+    registerUser: registerUser,
+    updateUser: updateUser,
     recipe: getRecipe,
     recipes: getRecipes,
     updateRecipe: updateRecipe,
